@@ -8,11 +8,20 @@
     <span class="d-inline-block"> <a asp-action="Add" asp-controller="Home" class="btn btn-primary">Upload FIles</a></span>
     <span class="d-inline-block"> <a asp-action="Search" asp-controller="Home" class="btn btn-primary">View Uploads</a></span>
 </div>
-<div class="row">
-    <p >@ViewBag.Success</p>
-</div>
+
 <div class="row">
     <div class="col-md-10 offset-1">
+        <div class="row my-3">
+            @if (ViewBag.Success != null && ViewBag.Success != false)
+            {
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    <strong>Hello @ViewBag.User!</strong> Your documents was uploaded and an email sent successfully.
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            }
+        </div>
         <table class="table table-hover table-bordered">
             <thead class="bg-primary text-light">
                 <tr>

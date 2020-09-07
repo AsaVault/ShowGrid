@@ -35,6 +35,8 @@ namespace ShowGrid.Controllers
         public IActionResult Index()
         {
             var result = _repo.GetAllUsers();
+            ViewBag.Success = TempData["Alert"];
+            ViewBag.User = TempData["User"];
             return View(result);
         }
 
@@ -44,6 +46,7 @@ namespace ShowGrid.Controllers
         public IActionResult Add()
         {
             var model = new UploadDocument();
+            
             return View(model);
         }
 
@@ -94,11 +97,11 @@ namespace ShowGrid.Controllers
                 msg.Subject = "Document Successfully Uploaded";
                 msg.Body = $"Hello {user.Name},  your documents was successfully uploaded. Here is your Transaction ID {user.TransactionId}. Kindly find the attached documents.";  // Message Body
 
-                foreach (var filepath in files)
+                for (var i = 0; i < files.Count(); i++)
                 {
-                    string fileName = Path.GetFileName(filepath.FileName);
+                    string fileName = Path.GetFileName(files[i].FileName);
 
-                    msg.Attachments.Add(new Attachment(filepath.OpenReadStream(), fileName));
+                    msg.Attachments.Add(new Attachment(files[i].OpenReadStream(),fileName));
                 }
 
                 SmtpClient client = new SmtpClient
@@ -116,7 +119,8 @@ namespace ShowGrid.Controllers
                 client.Send(msg);
 
 
-                ViewBag.Success = $"Email has been sent successfully.";
+                TempData["User"] = user.Name;
+                TempData["Alert"] = true;
 
                 return RedirectToAction(nameof(Index));
             }
