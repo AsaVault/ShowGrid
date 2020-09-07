@@ -1,0 +1,114 @@
+﻿@model SearchViewModel
+@{
+    ViewData["Title"] = "Search";
+}
+
+<div class="row ">
+    <div class="row col-md-6 mx-auto">
+        <div class="text-center">
+            <span class="d-inline-block mr-2"> <a asp-action="Index" asp-controller="Home" class="btn btn-primary">Back to View</a></span>
+            <span class="d-inline-block"> <a asp-action="Add" asp-controller="Home" class="btn btn-primary">Upload Files</a></span>
+        </div>
+        <div class="col-md-12">
+            <form asp-action="Search" asp-controller="Home" method="post">
+                <div class="form-group">
+                    <label class="col-form-label" asp-for="Email"></label>
+                    <input type="text" class="form-control" asp-for="Email">
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label class="col-form-label" asp-for="TransactionId"></label>
+                    <input type="text" class="form-control" asp-for="TransactionId">
+                    <span asp-validation-for="TransactionId" class="text-danger"></span>
+                </div>
+                <button type="submit" class="btn btn-primary btn-block">View Uploads</button>
+            </form>
+        </div>
+    </div>
+    <div class="row col-md-6 mx-auto ">
+        @if (!(Model?.Files == null))
+        {
+            <br /><br />
+            <div class="row alert alert-dismissible alert-warning">
+                <div class="col-md-12 mx-auto">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <table class="table table-hover table-bordered">
+                                <thead class="bg-primary text-light">
+                                    <tr>
+                                        <th>Id</th>
+                                        <th>Email</th>
+                                        <th>Transaction Id</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @{ var i = 1;}
+                                        <tr>
+                                            <td>@i</td>
+                                            <td>@Model.Email</td>
+                                            <td>@Model.TransactionId</td>
+                                        </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        @foreach (var item in Model.Files)
+                        {
+                            if (item.FilePath.Contains(".jpg") || item.FilePath.Contains(".png"))
+                            {
+                                var txt = item.FilePath;
+                                <div class="col-md-6 align-items-center">
+                                    <div>
+                                        <a href="@txt" target="_blank" class="text-light" id="myText"><img src="@txt" alt="@txt" class="img-thumbnail"></a>
+                                    </div>
+                                    <div>
+                                        <a href="@txt" target="_blank" class="" id="myText">@item.FileName</a>
+                                    </div>
+                                </div>
+                            }
+                            else
+                            {
+                                if (item.FilePath.Contains(".doc"))
+                                {
+                                    var txt = item.FilePath;
+                                    <div class="col-md-4">
+                                        <div>
+                                            <a href="@txt" target="_blank" class="text-light" id="myText"><img src="~/images/microsoft-word-thumbnail-png-clip-art.png" alt="@txt" class="img-thumbnail"></a>
+                                        </div>
+                                        <div>
+                                            <a href="@txt" target="_blank" class="" id="myText">@item.FileName</a>
+                                        </div>
+                                    </div>
+                                }
+                                else
+                                {
+                                    if (item.FilePath.Contains(".xls"))
+                                    {
+                                        var txt = item.FilePath;
+                                        <div class="col-md-4">
+                                            <div>
+                                                <a href="@txt" target="_blank" class="text-light" id="myText"><img src="~/images/excel-doc.png" alt="@txt" class="img-thumbnail"></a>
+                                            </div>
+                                            <div>
+                                                <a href="@txt" target="_blank" class="" id="myText">@item.FileName</a>
+                                            </div>
+                                        </div>
+                                    }
+                                }
+                            }
+
+                        }
+
+                    </div>
+                </div>
+            </div>
+        }
+        else
+        {
+            <div class="row m-5">
+                <p>No Contents to show yet</p>
+            </div>
+        }
+    </div> 
+</div>
+
+
