@@ -24,7 +24,9 @@
                     <input type="file" multiple class="form-control-file" asp-for="FormFiles" id="postedFile">
                     <span asp-validation-for="FormFiles" class="text-danger"></span>
                 </div>
-                <button type="submit" class="btn btn-primary btn-block">Upload</button>
+                <button 
+                        data-ajax="true"
+                        type="submit" class="btn btn-primary btn-block">Upload</button>
             </form>
         </div>
     </div>
