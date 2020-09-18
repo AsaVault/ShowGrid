@@ -3,9 +3,13 @@
 
 // Write your JavaScript code.
 
+//Return to Page
 
+ function AjaxSuccess(){
+    var newUrl = '/Home/Index';
+    window.location.href = newUrl;
+}
 //Loader script
-
 $(function () {
     $("#loaderbody").addClass('hide');
 

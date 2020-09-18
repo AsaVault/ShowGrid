@@ -7,7 +7,7 @@
         
         <div class="col-md-6">
             <h1>Upload File</h1>
-            <form asp-action="Add" asp-controller="Home" method="post" enctype="multipart/form-data">
+            <form asp-action="Add" asp-controller="Home" method="post" enctype="multipart/form-data" data-ajax="true" data-ajax-success="AjaxSuccess" autocomplete="off">
                 <input asp-for="Id" type="hidden" />
                 <div class="form-group">
                     <label class="col-form-label" asp-for="Name"></label>
@@ -25,7 +25,7 @@
                     <span asp-validation-for="FormFiles" class="text-danger"></span>
                 </div>
                 <button 
-                        data-ajax="true"
+                        
                         type="submit" class="btn btn-primary btn-block">Upload</button>
             </form>
         </div>
